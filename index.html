@@ -72,7 +72,7 @@
 
             fetch("https://deluxe-begonia-582e97.netlify.app/.netlify/functions/getdataurl?shortUrl="+inputData).then(res=>res.json()).then(res => {
                 console.log(res);
-                const fileUrl = '//static.eeo.cn/' + res?.data?.list?.[0]?.src;
+                const fileUrl = 'https://static.eeo.cn/' + res?.data?.list?.[0]?.src;
                 document.getElementById('mp4Url').value = fileUrl;
 
                 // 获取 DOM 元素
