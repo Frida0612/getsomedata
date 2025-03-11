@@ -76,8 +76,8 @@ async function postRequest(url, body, headers = {}) {
 // 使用示例（发送 JSON 数据）
 async function run(req, context) {
   try {
-    const { shortUrl } = context.params;
-    console.log(111, context.params)
+    const { shortUrl } = url.parse(req.url).query;
+    console.log(111, shortUrl);
     const fullUrl = await getRedirectedUrlWithTimeout(shortUrl);
     const parsedUrl = url.parse(fullUrl);
     console.log(222, parsedUrl.query);
