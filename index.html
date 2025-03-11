@@ -52,32 +52,25 @@
                 return;
             }
 
-            // 创建XMLHttpRequest对象
-            const xhr = new XMLHttpRequest();
-            
-            // 配置请求（这里假设是GET请求，实际需要根据你的后端接口修改）
-            const apiUrl = `https://api.example.com/endpoint?param=${encodeURIComponent(inputContent)}`;
-            
-            xhr.open('GET', apiUrl, true);
-
-            // 设置响应处理
-            xhr.onload = function() {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    // 请求成功，显示结果
-                    document.getElementById('result').textContent = xhr.responseText;
-                } else {
-                    // 处理错误
-                    document.getElementById('result').textContent = '请求失败: ' + xhr.statusText;
-                }
-            };
-
-            xhr.onerror = function() {
-                // 处理网络错误
-                document.getElementById('result').textContent = '网络错误，请求失败';
-            };
-
-            // 发送请求
-            xhr.send();
+            fetch("https://www.eeo.cn/lms/app/share/report/activity/recordClassInfo", {
+              "headers": {
+                "accept": "application/json, text/plain, */*",
+                "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7,ja;q=0.6,pt;q=0.5",
+                "cache-control": "no-cache",
+                "content-type": "application/x-www-form-urlencoded",
+                "pragma": "no-cache",
+                "priority": "u=1, i",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-site"
+              },
+              "referrer": "https://share.eeo.cn/s/lms/recordReport?from=lms&event=s_recordReport&shareParam=cZpxtFI1qCJFgY9zHyftXzCTC2i%2BunvCeRRC1nTzFRnz7vPYUiJPuIlbmYGJJUThGnhI5oO4iNsARlosVYp6NwmTRp5lpIWYY8y%2Bvs6UA7PPEH%2B8FV6q9Wx1kDZ83W9KtkptNzn8H20BxlEV%2B%2FE68b9lQew1Rp3yKrIJVE4dleE%3D",
+              "referrerPolicy": "unsafe-url",
+              "body": "shareParam=cZpxtFI1qCJFgY9zHyftXzCTC2i%2BunvCeRRC1nTzFRnz7vPYUiJPuIlbmYGJJUThGnhI5oO4iNsARlosVYp6NwmTRp5lpIWYY8y%2Bvs6UA7PPEH%2B8FV6q9Wx1kDZ83W9KtkptNzn8H20BxlEV%2B%2FE68b9lQew1Rp3yKrIJVE4dleE%3D",
+              "method": "POST",
+              "mode": "cors",
+              "credentials": "include"
+            }).then(res=>res.json()).then(console.log);
         }
     </script>
 </body>
