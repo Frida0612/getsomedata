@@ -63,7 +63,11 @@
                 return;
             }
 
-            fetch("https://deluxe-begonia-582e97.netlify.app/.netlify/functions/getdataurl?shortUrl="+inputData).then(res=>res.json()).then(console.log);
+            fetch("https://deluxe-begonia-582e97.netlify.app/.netlify/functions/getdataurl?shortUrl="+inputData).then(res=>res.json()).then(res => {
+                console.log(res);
+                const fileUrl = '//static.eeo.cn/' + res?.data?.list?.[0]?.src;
+                document.getElementById('result').innerHTML = fileUrl;
+            });
         }
     </script>
 </body>
