@@ -75,8 +75,10 @@ async function postRequest(url, body, headers = {}) {
 // 使用示例（发送 JSON 数据）
 async function run(req, context) {
   try {
-    // const fullUrl = await getRedirectedUrlWithTimeout();
-    console.log(111, req, context);
+    const { shortUrl } = context.params;
+    const fullUrl = await getRedirectedUrlWithTimeout(shortUrl);
+    const parsedUrl = url.parse(fullUrl);
+    console.log(111, parsedUrl.query);
     const response = await postRequest('', querystring.stringify({
       shareParam: querystring.unescape('cZpxtFI1qCJFgY9zHyftXzCTC2i%2BunvCeRRC1nTzFRnz7vPYUiJPuIlbmYGJJUThGnhI5oO4iNsARlosVYp6NwmTRp5lpIWYY8y%2Bvs6UA7PPEH%2B8FV6q9Wx1kDZ83W9KtkptNzn8H20BxlEV%2B%2FE68b9lQew1Rp3yKrIJVE4dleE%3D')
     }));
