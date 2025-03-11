@@ -38,7 +38,13 @@
     <div class="container">
         <input type="text" id="inputField" placeholder="请输入分享内容...">
         <button onclick="sendRequest()">发送请求</button>
-        <div id="result"></div>
+          <input type="text" id="mp4Url" readonly style="width: 300px;" />
+          <div>
+            <button id="copyButton">复制链接</button>
+            <button id="downloadButton">下载文件</button>
+          </div>
+        
+          <div id="message"></div>
     </div>
 
     <script>
@@ -66,7 +72,50 @@
             fetch("https://deluxe-begonia-582e97.netlify.app/.netlify/functions/getdataurl?shortUrl="+inputData).then(res=>res.json()).then(res => {
                 console.log(res);
                 const fileUrl = '//static.eeo.cn/' + res?.data?.list?.[0]?.src;
-                document.getElementById('result').innerHTML = fileUrl;
+                document.getElementById('mp4Url').value = fileUrl;
+
+                // 获取 DOM 元素
+                const mp4UrlInput = document.getElementById('mp4Url');
+                const copyButton = document.getElementById('copyButton');
+                const downloadButton = document.getElementById('downloadButton');
+                const messageDiv = document.getElementById('message');
+            
+                // 复制链接功能
+                copyButton.addEventListener('click', () => {
+                  // 选中输入框中的内容
+                  mp4UrlInput.select();
+                  mp4UrlInput.setSelectionRange(0, 99999); // 兼容移动端
+            
+                  // 执行复制命令
+                  try {
+                    document.execCommand('copy');
+                    messageDiv.textContent = '链接已复制到剪贴板！';
+                  } catch (err) {
+                    messageDiv.textContent = '复制失败，请手动复制链接。';
+                  }
+            
+                  // 取消选中
+                  window.getSelection().removeAllRanges();
+                });
+            
+                // 下载文件功能
+                downloadButton.addEventListener('click', () => {
+                  const url = mp4UrlInput.value;
+            
+                  // 创建隐藏的 <a> 标签
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = url.split('/').pop(); // 使用 URL 中的最后一部分作为文件名
+                  a.style.display = 'none';
+            
+                  // 将 <a> 标签添加到 DOM 中并触发点击
+                  document.body.appendChild(a);
+                  a.click();
+            
+                  // 移除 <a> 标签
+                  document.body.removeChild(a);
+            
+                  messageDiv.textContent = '文件下载已开始！';
             });
         }
     </script>
