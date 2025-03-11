@@ -1,10 +1,9 @@
-const http = require('http');
+
 const https = require('https'); // 若目标为 HTTPS 站点需使用该模块
 const querystring = require('querystring');
 
 async function postRequest(url, body, headers = {}) {
-  // 自动判断协议
-  const protocol = url.startsWith('https') ? https : http;
+
 
   // 提取主机和路径
   const parsedUrl = new URL(url);
@@ -19,7 +18,7 @@ async function postRequest(url, body, headers = {}) {
   };
 
   return new Promise((resolve, reject) => {
-    const req = protocol.request(options, (res) => {
+    const req = https.request(options, (res) => {
       let data = '';
       res.setEncoding('utf8');
       res.on('data', (chunk) => data += chunk);
