@@ -93,5 +93,5 @@ async function run(req, context) {
 
 export default async (req, context) => {
   const rst = await run(req, context);
-  return rst;
+  return new Response(rst);
 };
