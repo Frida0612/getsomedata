@@ -1,6 +1,7 @@
 
 const https = require('https'); // 若目标为 HTTPS 站点需使用该模块
 const querystring = require('querystring');
+const url = require('url');
 
 
 function getRedirectedUrlWithTimeout(shortUrl, timeout = 5000) {
