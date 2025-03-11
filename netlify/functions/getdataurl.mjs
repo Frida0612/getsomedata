@@ -92,6 +92,7 @@ async function run(req, context) {
     
     console.log('响应状态:', response.statusCode);
     console.log('响应内容:', response.data);
+       return response.data;
   } catch (error) {
     console.error('请求失败:', error.message);
   }
