@@ -87,7 +87,7 @@ async function run(req, context) {
     const shareParam = getQueryString(url.parse(fullUrl).search, 'shareParam');
     console.log(222, shareParam);
     const response = await postRequest('', querystring.stringify({
-      shareParam: querystring.unescape('cZpxtFI1qCJFgY9zHyftXzCTC2i%2BunvCeRRC1nTzFRnz7vPYUiJPuIlbmYGJJUThGnhI5oO4iNsARlosVYp6NwmTRp5lpIWYY8y%2Bvs6UA7PPEH%2B8FV6q9Wx1kDZ83W9KtkptNzn8H20BxlEV%2B%2FE68b9lQew1Rp3yKrIJVE4dleE%3D')
+      shareParam: querystring.unescape(shareParam)
     }));
     
     console.log('响应状态:', response.statusCode);
