@@ -51,26 +51,19 @@
                 alert('请输入有效内容');
                 return;
             }
+            // 正则表达式匹配 URL
+            const urlRegex = /https?:\/\/[^\s]+/g;
+            
+            // 使用正则表达式提取 URL
+            const urls = inputContent.match(urlRegex);
+            
+            const inputData = urls && urls[0];
+            if (!inputData) {
+                alert('未找到任何 URL');
+                return;
+            }
 
-            fetch("https://www.eeo.cn/lms/app/share/report/activity/recordClassInfo", {
-              "headers": {
-                "accept": "application/json, text/plain, */*",
-                "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7,ja;q=0.6,pt;q=0.5",
-                "cache-control": "no-cache",
-                "content-type": "application/x-www-form-urlencoded",
-                "pragma": "no-cache",
-                "priority": "u=1, i",
-                "sec-fetch-dest": "empty",
-                "sec-fetch-mode": "cors",
-                "sec-fetch-site": "same-site"
-              },
-              "referrer": "https://share.eeo.cn/s/lms/recordReport?from=lms&event=s_recordReport&shareParam=cZpxtFI1qCJFgY9zHyftXzCTC2i%2BunvCeRRC1nTzFRnz7vPYUiJPuIlbmYGJJUThGnhI5oO4iNsARlosVYp6NwmTRp5lpIWYY8y%2Bvs6UA7PPEH%2B8FV6q9Wx1kDZ83W9KtkptNzn8H20BxlEV%2B%2FE68b9lQew1Rp3yKrIJVE4dleE%3D",
-              "referrerPolicy": "unsafe-url",
-              "body": "shareParam=cZpxtFI1qCJFgY9zHyftXzCTC2i%2BunvCeRRC1nTzFRnz7vPYUiJPuIlbmYGJJUThGnhI5oO4iNsARlosVYp6NwmTRp5lpIWYY8y%2Bvs6UA7PPEH%2B8FV6q9Wx1kDZ83W9KtkptNzn8H20BxlEV%2B%2FE68b9lQew1Rp3yKrIJVE4dleE%3D",
-              "method": "POST",
-              "mode": "cors",
-              "credentials": "include"
-            }).then(res=>res.json()).then(console.log);
+            fetch("https://deluxe-begonia-582e97.netlify.app/.netlify/functions/getdataurl?shortUrl="+inputData).then(res=>res.json()).then(console.log);
         }
     </script>
 </body>
