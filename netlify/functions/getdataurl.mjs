@@ -9,10 +9,9 @@ async function postRequest(url, body, headers = {}) {
   // 提取主机和路径
   const parsedUrl = new URL(url);
   const options = {
-    hostname: parsedUrl.hostname,
-    port: parsedUrl.port || (protocol === https ? 443 : 80),
-    path: parsedUrl.pathname + parsedUrl.search,
-    method: 'POST',
+     hostname: 'www.eeo.cn', // 目标服务器地址
+      path: '/lms/app/share/report/activity/recordClassInfo', // 请求路径
+      method: 'POST', // 请求方法
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       ...headers // 允许自定义扩展头部
