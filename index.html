@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取源文件</title>
+    <style>
+        /* 简单的样式修饰 */
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        input {
+            width: 300px;
+            padding: 8px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="inputField" placeholder="请输入内容...">
+        <button onclick="sendRequest()">发送请求</button>
+        <div id="result"></div>
+    </div>
 
+    <script>
+        function sendRequest() {
+            // 获取输入框内容
+            const inputContent = document.getElementById('inputField').value;
+            
+            // 简单验证输入内容
+            if (!inputContent.trim()) {
+                alert('请输入有效内容');
+                return;
+            }
+
+            // 创建XMLHttpRequest对象
+            const xhr = new XMLHttpRequest();
+            
+            // 配置请求（这里假设是GET请求，实际需要根据你的后端接口修改）
+            const apiUrl = `https://api.example.com/endpoint?param=${encodeURIComponent(inputContent)}`;
+            
+            xhr.open('GET', apiUrl, true);
+
+            // 设置响应处理
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // 请求成功，显示结果
+                    document.getElementById('result').textContent = xhr.responseText;
+                } else {
+                    // 处理错误
+                    document.getElementById('result').textContent = '请求失败: ' + xhr.statusText;
+                }
+            };
+
+            xhr.onerror = function() {
+                // 处理网络错误
+                document.getElementById('result').textContent = '网络错误，请求失败';
+            };
+
+            // 发送请求
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
