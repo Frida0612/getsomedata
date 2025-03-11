@@ -39,7 +39,7 @@ async function postRequest(url, body, headers = {}) {
 // 使用示例（发送 JSON 数据）
 async function run() {
   try {
-    const response = await postRequest('https://www.eeo.cn/lms/app/share/report/activity/recordClassInfo', querystring.stringify({
+    const response = await postRequest('', querystring.stringify({
       shareParam: 'cZpxtFI1qCJFgY9zHyftXzCTC2i%2BunvCeRRC1nTzFRnz7vPYUiJPuIlbmYGJJUThGnhI5oO4iNsARlosVYp6NwmTRp5lpIWYY8y%2Bvs6UA7PPEH%2B8FV6q9Wx1kDZ83W9KtkptNzn8H20BxlEV%2B%2FE68b9lQew1Rp3yKrIJVE4dleE%3'
     }));
     
