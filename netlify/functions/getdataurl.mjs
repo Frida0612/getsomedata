@@ -2,7 +2,12 @@
 const https = require('https'); // 若目标为 HTTPS 站点需使用该模块
 const querystring = require('querystring');
 const url = require('url');
-
+function getQueryString(search, name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = search.substr(1).match(reg);
+     if(r!=null)return  r[2]; return null;
+}
 
 function getRedirectedUrlWithTimeout(shortUrl, timeout = 5000) {
   return new Promise((resolve, reject) => {
@@ -76,11 +81,11 @@ async function postRequest(url, body, headers = {}) {
 // 使用示例（发送 JSON 数据）
 async function run(req, context) {
   try {
-    // const { shortUrl } = url.parse(req.url).query;
-    console.log(111, url.parse(req.url));
-    // const fullUrl = await getRedirectedUrlWithTimeout(shortUrl);
-    // const parsedUrl = url.parse(fullUrl);
-    // console.log(222, parsedUrl.query);
+    const shortUrl = getQueryString(url.parse(req.url).search, 'shortUrl');
+    console.log(111, shortUrl);
+    const fullUrl = await getRedirectedUrlWithTimeout(shortUrl);
+    const shareParam = getQueryString(url.parse(fullUrl).search, 'shareParam');
+    console.log(222, shareParam);
     const response = await postRequest('', querystring.stringify({
       shareParam: querystring.unescape('cZpxtFI1qCJFgY9zHyftXzCTC2i%2BunvCeRRC1nTzFRnz7vPYUiJPuIlbmYGJJUThGnhI5oO4iNsARlosVYp6NwmTRp5lpIWYY8y%2Bvs6UA7PPEH%2B8FV6q9Wx1kDZ83W9KtkptNzn8H20BxlEV%2B%2FE68b9lQew1Rp3yKrIJVE4dleE%3D')
     }));
