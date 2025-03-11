@@ -2,6 +2,45 @@
 const https = require('https'); // 若目标为 HTTPS 站点需使用该模块
 const querystring = require('querystring');
 
+
+function getRedirectedUrlWithTimeout(shortUrl, timeout = 5000) {
+  return new Promise((resolve, reject) => {
+    const parsedUrl = url.parse(shortUrl);
+    const protocol = parsedUrl.protocol === 'https:' ? https : http;
+
+    const options = {
+      hostname: parsedUrl.hostname,
+      path: parsedUrl.path,
+      method: 'GET',
+    };
+
+    const req = protocol.request(options, (res) => {
+      const statusCode = res.statusCode;
+
+      if (statusCode >= 300 && statusCode < 400 && res.headers.location) {
+        resolve(getRedirectedUrlWithTimeout(res.headers.location, timeout));
+      } else if (statusCode >= 200 && statusCode < 300) {
+        resolve(shortUrl);
+      } else {
+        reject(new Error(`Unexpected status code: ${statusCode}`));
+      }
+    });
+
+    req.on('error', (err) => {
+      reject(err);
+    });
+
+    // 设置超时
+    req.setTimeout(timeout, () => {
+      req.destroy(); // 中断请求
+      reject(new Error('Request timed out'));
+    });
+
+    req.end();
+  });
+}
+
+
 async function postRequest(url, body, headers = {}) {
 
 
