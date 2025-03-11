@@ -5,8 +5,6 @@ const querystring = require('querystring');
 async function postRequest(url, body, headers = {}) {
 
 
-  // 提取主机和路径
-  const parsedUrl = new URL(url);
   const options = {
      hostname: 'www.eeo.cn', // 目标服务器地址
       path: '/lms/app/share/report/activity/recordClassInfo', // 请求路径
